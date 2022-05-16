@@ -1,17 +1,35 @@
-import '~/styles/globals.css'
-import type { AppProps } from 'next/app'
-import Head from 'next/head'
-import { staticPath } from '~/utils/$path'
+import { AppProps } from 'next/app'
+import PropTypes from 'prop-types'
+import { ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import { CacheProvider, EmotionCache } from '@emotion/react'
+import createEmotionCache from '~/utils/createEmotionCache'
+import theme from '~/utils/theme'
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache()
+
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache
+}
+
+function MyApp(props: MyAppProps) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+
   return (
-    <>
-      <Head>
-        <link rel="icon" href={staticPath.favicon_png} />
-      </Head>
-      <Component {...pageProps} />
-    </>
+    <CacheProvider value={emotionCache}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </CacheProvider>
   )
+}
+
+MyApp.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+  emotionCache: PropTypes.object,
+  pageProps: PropTypes.object.isRequired
 }
 
 export default MyApp
