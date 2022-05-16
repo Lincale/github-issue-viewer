@@ -7,8 +7,17 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Task {
-  id    Int     @id @default(autoincrement())
-  label String
-  done  Boolean @default(false)
+model Repository {
+  id    String     @id
+  name  String
+  url   String
+  issues  Issue[]
+}
+
+model Issue {
+  id    String     @id
+  title String
+  url   String
+  repository  Repository  @relation(fields: [repositoryId], references: [id])
+  repositoryId  String
 }

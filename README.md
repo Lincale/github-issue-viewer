@@ -1,30 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+# GitHub Issue Viewer
+
+## About
+
+- GitHubのGraphQL APIを用いた、Repository, Issue検索Webアプリケーションです。
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:8000](http://localhost:8000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. `cp server/.env.sample server/.env`
+   1. `server/.env`の`MYAPP_GITHUB_TOKEN`に、GitHubで取得したアクセストークンを設定
+       1. アクセストークンの権限はpublic_repoのみで大丈夫です。
+2. `cp server/prisma/.env.sample server/prisma/.env`
+   1. `server/prisma/.env`の`API_DATABASE_URL`を`file:./dev.db`に設定
+3. DEVの場合
+   1. rootディレクトリ直下で`yarn && yarn dev`
+4. PRODの場合
+   1. rootディレクトリ直下で`yarn && yarn build && yarn start`
