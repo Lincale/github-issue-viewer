@@ -1,3 +1,5 @@
+import { Issue, Repository } from '@prisma/client'
+
 export type UserInfo = {
   id: string
   name: string
@@ -6,4 +8,14 @@ export type UserInfo = {
 
 export type AuthHeader = {
   authorization: string
+}
+
+export type GetRepositoriesQuery = {
+  first: number
+  after: string
+  query: string
+}
+
+export type ResRepository = Repository & {
+  issues: Issue[]
 }
